@@ -1,10 +1,6 @@
 
-import javax.swing.JOptionPane;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import javax.swing.*;
+import java.sql.*;
 
 
 /*
@@ -16,12 +12,12 @@ import java.sql.ResultSet;
  *
  * @author MarwenTh
  */
-public class LoginForm extends javax.swing.JFrame {
+public class LoginFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginForm
      */
-    public LoginForm() {
+    public LoginFrame() {
         initComponents();
     }
 
@@ -143,26 +139,25 @@ public class LoginForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-    Class.forName("oracle.jdbc.OracleDriver");
-    Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "project", "123");
-    String sql = "select * from loginadmin where username = ? and password = ?";
-    PreparedStatement pst = con.prepareStatement(sql);
-    pst.setString(1, jTextField1.getText());
-    pst.setString(2, jPasswordField1.getText());
-    ResultSet rs = pst.executeQuery();
-    if (rs.next()) {
-        this.setVisible(false);
-        new CRUDFrame().setVisible(true);
-    } else {
-        JOptionPane.showMessageDialog(null, "Username and Password Do Not Matched");
-        jTextField1.setText("");
-        jPasswordField1.setText("");
-    }
-    con.close();
-} catch (ClassNotFoundException | SQLException e) {
-    JOptionPane.showMessageDialog(null, e);
-}
-
+        Class.forName("oracle.jdbc.OracleDriver");
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "project", "123");
+        String sql = "select * from loginadmin where username = ? and password = ?";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, jTextField1.getText());
+        pst.setString(2, jPasswordField1.getText());
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            this.setVisible(false);
+            new CRUDFrame().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Username and Password Do Not Matched");
+            jTextField1.setText("");
+            jPasswordField1.setText("");
+        }
+        con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+        JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -182,20 +177,21 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginForm().setVisible(true);
+                new LoginFrame().setVisible(true);
             }
         });
     }

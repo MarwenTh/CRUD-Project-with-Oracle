@@ -9,12 +9,12 @@ import java.sql.*;
  *
  * @author MarwenTh
  */
-public class SelectFrame extends javax.swing.JFrame {
+public class ReadFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form SelectFrame
      */
-    public SelectFrame() {
+    public ReadFrame() {
         initComponents();
         jTextField2.setEditable(false);
         jTextField3.setEditable(false);
@@ -165,45 +165,38 @@ public class SelectFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-    Class.forName("oracle.jdbc.OracleDriver");
-    Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "project", "123");
+        Class.forName("oracle.jdbc.OracleDriver");
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "project", "123");
 
-    String username = jTextField1.getText(); // Assuming jTextField1 contains the username
+        String username = jTextField1.getText(); 
 
-    // Select user information based on the username
-    String selectSQL = "SELECT * FROM LOGINDATABSE WHERE username = ?";
-    PreparedStatement selectStmt = con.prepareStatement(selectSQL);
-    selectStmt.setString(1, username);
-    ResultSet rs = selectStmt.executeQuery();
+        String selectSQL = "SELECT * FROM LOGINDATABSE WHERE username = ?";
+        PreparedStatement selectStmt = con.prepareStatement(selectSQL);
+        selectStmt.setString(1, username);
+        ResultSet rs = selectStmt.executeQuery();
 
-    if (rs.next()) {
-        String fullname = rs.getString("fullname");
-        String age = rs.getString("age");
-        String telephone = rs.getString("telephone");
+        if (rs.next()) {
+            String fullname = rs.getString("fullname");
+            String age = rs.getString("age");
+            String telephone = rs.getString("telephone");
 
-        // Process the user information as needed
-        jTextField2.setText(fullname);
-        jTextField3.setText(age);
-        jTextField4.setText(telephone);
-    } else {
-        // No user found with the given username
-        JOptionPane.showMessageDialog(null, "User not found.");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-    }
+            jTextField2.setText(fullname);
+            jTextField3.setText(age);
+            jTextField4.setText(telephone);
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found.");
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+        }
 
-    // Close the resources
-    rs.close();
-    selectStmt.close();
-    con.close();
-} catch (ClassNotFoundException | SQLException e) {
-    JOptionPane.showMessageDialog(null, e);
-}
-
-
-
+        rs.close();
+        selectStmt.close();
+        con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -229,20 +222,21 @@ public class SelectFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelectFrame().setVisible(true);
+                new ReadFrame().setVisible(true);
             }
         });
     }

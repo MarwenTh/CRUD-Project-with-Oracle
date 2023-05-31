@@ -9,12 +9,12 @@ import java.sql.*;
  *
  * @author MarwenTh
  */
-public class InsertFrame extends javax.swing.JFrame {
+public class CreateFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form InserFrame
      */
-    public InsertFrame() {
+    public CreateFrame() {
         initComponents();
     }
 
@@ -175,55 +175,51 @@ public class InsertFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-    Class.forName("oracle.jdbc.OracleDriver");
-    Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "project", "123");
+            Class.forName("oracle.jdbc.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "project", "123");
 
-    String username = jTextField1.getText().trim();
-    String fullname = jTextField2.getText().trim();
-    String age = jTextField3.getText().trim();
-    String telephone = jTextField4.getText().trim();
-    String password = jTextField5.getText().trim();
+            String username = jTextField1.getText().trim();
+            String fullname = jTextField2.getText().trim();
+            String age = jTextField3.getText().trim();
+            String telephone = jTextField4.getText().trim();
+            String password = jTextField5.getText().trim();
 
-    // Check if any field is empty
-    if (username.isEmpty() || fullname.isEmpty() || age.isEmpty() || telephone.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please fill in all the fields.");
-    } else {
-        if (!age.matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "Age must be a numeric value.");
-} else if (!telephone.matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "Telephone must be a numeric value.");
-}else{
-        // Insert the user information into the database
-        String insertSQL = "INSERT INTO LOGINDATABSE (username, fullname, age, telephone, password) VALUES (?, ?, ?, ?, ?)";
+            if (username.isEmpty() || fullname.isEmpty() || age.isEmpty() || telephone.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please fill in all the fields.");
+            } else {
+                if (!age.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Age must be a numeric value.");
+        } else if (!telephone.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Telephone must be a numeric value.");
+        }else{
+                String insertSQL = "INSERT INTO LOGINDATABSE (username, fullname, age, telephone, password) VALUES (?, ?, ?, ?, ?)";
 
-        PreparedStatement insertStmt = con.prepareStatement(insertSQL);
-        insertStmt.setString(1, username);
-        insertStmt.setString(2, fullname);
-        insertStmt.setString(3, age);
-        insertStmt.setString(4, telephone);
-        insertStmt.setString(5, password);
-        int rowsInserted = insertStmt.executeUpdate();
-        insertStmt.close();
+                PreparedStatement insertStmt = con.prepareStatement(insertSQL);
+                insertStmt.setString(1, username);
+                insertStmt.setString(2, fullname);
+                insertStmt.setString(3, age);
+                insertStmt.setString(4, telephone);
+                insertStmt.setString(5, password);
+                int rowsInserted = insertStmt.executeUpdate();
+                insertStmt.close();
 
-        // Display a message based on the insertion result
-        if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(null, "User inserted successfully!");
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-        } else {
-            JOptionPane.showMessageDialog(null, "Failed to insert user.");
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(null, "User inserted successfully!");
+                    jTextField1.setText("");
+                    jTextField2.setText("");
+                    jTextField3.setText("");
+                    jTextField4.setText("");
+                    jTextField5.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to insert user.");
+                }
+            }
         }
-    }
-}
 
-    // Close the connection
-    con.close();
-} catch (ClassNotFoundException | SQLException e) {
-    JOptionPane.showMessageDialog(null, e);
-}
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
 
 
 
@@ -252,21 +248,23 @@ public class InsertFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InsertFrame().setVisible(true);
+                new CreateFrame().setVisible(true);
             }
         });
     }
